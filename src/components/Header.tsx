@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between gap-5 border-b border-line bg-bg/80 px-[18px] py-3.5 backdrop-blur-lg sm:px-8 lg:px-14 lg:py-5">
       <Link href="/" className="flex shrink-0 items-center gap-1.5 font-display text-xl font-bold tracking-tight">
-        OLIZ<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+        GIZMONEPAL<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
       </Link>
 
       <nav className="hidden flex-1 items-center gap-6 lg:flex">

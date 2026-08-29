@@ -30,7 +30,7 @@ export default function LoginForm() {
       <div className="mb-4.5 flex h-[54px] w-[54px] items-center justify-center rounded-2xl bg-ink text-white">
         <Icon name="lock" className="h-[22px] w-[22px] stroke-white" />
       </div>
-      <h2 className="mb-1.5 font-display text-[21px]">Oliz Admin</h2>
+      <h2 className="mb-1.5 font-display text-[21px]">GizmoNepal Admin</h2>
       <p className="mb-6 max-w-[280px] text-[12.5px] text-ink-soft">Sign in with your admin account to manage products and brands.</p>
 
       <form onSubmit={handleSubmit} className="flex w-full max-w-[300px] flex-col gap-3">
@@ -38,7 +38,7 @@ export default function LoginForm() {
         <input
           type="email"
           name="email"
-          placeholder="you@olizstore.com"
+          placeholder="you@gizmonepalstore.com"
           required
           autoComplete="username"
           className="rounded-xl border border-line bg-surface px-3.5 py-3 text-center text-sm focus:outline focus:outline-2 focus:outline-accent"

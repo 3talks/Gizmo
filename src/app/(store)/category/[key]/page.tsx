@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { key: string } }): Promise<Metadata> {
-  return { title: `${categoryLabel(params.key)} — OLIZ` };
+  return { title: `${categoryLabel(params.key)} — GizmoNepal` };
 }
 
 export default async function CategoryPage({ params }: { params: { key: string } }) {

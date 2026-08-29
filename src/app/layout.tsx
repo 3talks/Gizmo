@@ -20,7 +20,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OLIZ — Premium Gadgets, Nepal",
+  title: "GIZMONEPAL — Premium Gadgets, Nepal",
   description: "Phones, tablets, drones, watches and more — curated and shipped across Nepal.",
 };
 

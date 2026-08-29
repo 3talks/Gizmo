@@ -1,4 +1,4 @@
-# OLIZ Store — production-ready Next.js + Supabase
+# GIZMONEPAL Store — production-ready Next.js + Supabase
 
 A mobile-first storefront (Next.js 14 App Router, TypeScript, Tailwind) with a
 real, server-side-authenticated admin portal for managing products and brands.

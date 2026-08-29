@@ -92,7 +92,7 @@ export default function AdminDashboardClient({
     <>
       <header className="sticky top-0 z-40 flex flex-wrap items-center justify-between gap-2.5 border-b border-line bg-bg/90 px-[18px] py-3.5 backdrop-blur-lg lg:px-14 lg:py-4.5">
         <div className="flex items-center gap-1.5 font-display text-xl font-bold tracking-tight">
-          OLIZ<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          GIZMONEPAL<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
           <span className="ml-1.5 text-xs font-semibold text-ink-faint">Admin · {userEmail}</span>
         </div>
         <div className="flex items-center gap-2">

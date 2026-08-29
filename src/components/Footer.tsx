@@ -28,11 +28,11 @@ export default function Footer() {
 
       <div className="mt-5 text-[11.5px] leading-relaxed text-ink-soft lg:col-start-5 lg:row-start-1 lg:mt-0">
         <div>
-          <b className="font-semibold text-ink">Oliz Store Pvt. Ltd.</b> — registered gadget retailer
+          <b className="font-semibold text-ink">GizmoNepal </b> — registered gadget retailer
         </div>
-        <div>351 Basanta Marga, Babarmahal, Kathmandu, Nepal</div>
-        <div>PAN/VAT: 304563074 · OCR: 77343/067/068</div>
-        <div>Care line: 9861060000</div>
+        <div>Nayabazar, Falful Chowk, Kathmandu</div>
+        <div>PAN/VAT: 304563074 · </div>
+        <div>Care line: 9847681938</div>
       </div>
 
       <div className="my-5 flex gap-2.5 lg:col-start-5 lg:row-start-2 lg:my-4.5">
@@ -45,7 +45,7 @@ export default function Footer() {
 
       <div className="mt-4.5 border-t border-line pt-5 text-[10.5px] leading-relaxed text-ink-faint lg:col-span-full">
         Terms &amp; Conditions • Privacy Policy • Return Policy
-        <br />© {new Date().getFullYear()} Oliz Store Pvt. Ltd. — demo recreation, all rights reserved by original owner.
+        <br />© {new Date().getFullYear()} GizmoNepal Store all rights reserved by original owner.
       </div>
     </footer>
   );
