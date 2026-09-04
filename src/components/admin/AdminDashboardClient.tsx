@@ -10,32 +10,37 @@ import { categoryLabel } from "@/lib/constants";
 import { useToast } from "@/context/ToastContext";
 import ProductFormDrawer from "@/components/admin/ProductFormDrawer";
 import HeroSlideFormDrawer from "@/components/admin/HeroSlideFormDrawer";
+import SubcategoryFormDrawer from "@/components/admin/SubcategoryFormDrawer";
 import {
   signOutAction,
   deleteProductAction,
   addBrandAction,
   deleteBrandAction,
   deleteHeroSlideAction,
+  deleteSubcategoryAction,
 } from "@/app/admin/actions";
-import type { Product, Brand, HeroSlide } from "@/lib/types";
+import type { Product, Brand, HeroSlide, SubCategory } from "@/lib/types";
 
 export default function AdminDashboardClient({
   products,
   brands,
   heroSlides,
+  subcategories,
   userEmail,
 }: {
   products: Product[];
   brands: Brand[];
   heroSlides: HeroSlide[];
+  subcategories: SubCategory[];
   userEmail: string;
 }) {
   const router = useRouter();
   const { show } = useToast();
-  const [tab, setTab] = useState<"products" | "brands" | "slides">("products");
+  const [tab, setTab] = useState<"products" | "brands" | "slides" | "subcategories">("products");
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<Product | null | undefined>(undefined);
   const [editingSlide, setEditingSlide] = useState<HeroSlide | null | undefined>(undefined);
+  const [editingSubcategory, setEditingSubcategory] = useState<SubCategory | null | undefined>(undefined);
   const [brandName, setBrandName] = useState("");
 
   const filtered = useMemo(
@@ -88,11 +93,22 @@ export default function AdminDashboardClient({
     router.refresh();
   };
 
+  const handleDeleteSubcategory = async (s: SubCategory) => {
+    if (!confirm(`Delete subcategory "${s.name}"?`)) return;
+    const result = await deleteSubcategoryAction(s.id);
+    if (result && "error" in result && result.error) {
+      show(result.error, "x");
+      return;
+    }
+    show("Subcategory deleted", "check");
+    router.refresh();
+  };
+
   return (
     <>
       <header className="sticky top-0 z-40 flex flex-wrap items-center justify-between gap-2.5 border-b border-line bg-bg/90 px-[18px] py-3.5 backdrop-blur-lg lg:px-14 lg:py-4.5">
         <div className="flex items-center gap-1.5 font-display text-xl font-bold tracking-tight">
-          GIZMONEPAL<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          OLIZ<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
           <span className="ml-1.5 text-xs font-semibold text-ink-faint">Admin · {userEmail}</span>
         </div>
         <div className="flex items-center gap-2">
@@ -110,17 +126,19 @@ export default function AdminDashboardClient({
         </div>
       </header>
 
-      <div className="grid grid-cols-4 gap-2.5 px-[18px] pb-1 pt-4.5 lg:grid-cols-[repeat(4,190px)] lg:px-14 lg:pt-6">
+      <div className="grid grid-cols-2 gap-2.5 px-[18px] pb-1 pt-4.5 sm:grid-cols-5 lg:grid-cols-[repeat(5,170px)] lg:px-14 lg:pt-6">
         <StatCard value={products.length} label="Products" />
         <StatCard value={brands.length} label="Brands" />
         <StatCard value={onSaleCount} label="On sale" />
         <StatCard value={heroSlides.length} label="Hero slides" />
+        <StatCard value={subcategories.length} label="Subcategories" />
       </div>
 
-      <div className="flex gap-2 px-[18px] pt-4.5 lg:px-14 lg:pt-5.5">
+      <div className="flex flex-wrap gap-2 px-[18px] pt-4.5 lg:px-14 lg:pt-5.5">
         <TabButton active={tab === "products"} onClick={() => setTab("products")}>Products</TabButton>
         <TabButton active={tab === "brands"} onClick={() => setTab("brands")}>Brands</TabButton>
         <TabButton active={tab === "slides"} onClick={() => setTab("slides")}>Hero slides</TabButton>
+        <TabButton active={tab === "subcategories"} onClick={() => setTab("subcategories")}>Subcategories</TabButton>
       </div>
 
       {tab === "products" ? (
@@ -223,7 +241,7 @@ export default function AdminDashboardClient({
             </div>
           )}
         </div>
-      ) : (
+      ) : tab === "slides" ? (
         <div className="px-[18px] pb-16 pt-4 lg:px-14 lg:pb-[70px]">
           <div className="mb-3.5 flex flex-wrap items-center justify-between gap-2.5">
             <p className="max-w-[420px] text-xs text-ink-soft">
@@ -292,6 +310,57 @@ export default function AdminDashboardClient({
             </div>
           )}
         </div>
+      ) : (
+        <div className="px-[18px] pb-16 pt-4 lg:px-14 lg:pb-[70px]">
+          <div className="mb-3.5 flex flex-wrap items-center justify-between gap-2.5">
+            <p className="max-w-[420px] text-xs text-ink-soft">
+              These show up as a dropdown when hovering or clicking a category in the top navbar. Nothing shows until a category has at least one.
+            </p>
+            <button
+              onClick={() => setEditingSubcategory(null)}
+              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl bg-ink px-4.5 py-2.5 text-[12.5px] font-semibold text-white transition-transform active:scale-95"
+            >
+              <Icon name="plus" className="h-3.5 w-3.5 stroke-white" />
+              Add subcategory
+            </button>
+          </div>
+
+          {subcategories.length === 0 ? (
+            <div className="py-10 text-center text-[12.5px] text-ink-faint">No subcategories yet — the navbar links behave as plain links until you add some.</div>
+          ) : (
+            <div className="max-w-[760px]">
+              {subcategories.map((s) => (
+                <div key={s.id} className="mb-2.5 flex items-center gap-3 rounded-2xl border border-line bg-surface p-2.5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-soft">
+                    <Icon name="grid" className="h-4 w-4 stroke-accent" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h5 className="mb-0.5 truncate text-[12.5px] font-semibold">{s.name}</h5>
+                    <div className="font-mono text-[10.5px] text-ink-faint">
+                      Under {categoryLabel(s.category)} · order {s.sort_order} · links to {s.href}
+                    </div>
+                  </div>
+                  <div className="flex shrink-0 gap-1.5">
+                    <button
+                      onClick={() => setEditingSubcategory(s)}
+                      aria-label="Edit"
+                      className="flex h-8 w-8 items-center justify-center rounded-[9px] border border-line"
+                    >
+                      <Icon name="edit" className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteSubcategory(s)}
+                      aria-label="Delete"
+                      className="flex h-8 w-8 items-center justify-center rounded-[9px] border border-[#ffd7de] text-[#ff3860]"
+                    >
+                      <Icon name="trash" className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )}
 
       <ProductFormDrawer
@@ -312,6 +381,17 @@ export default function AdminDashboardClient({
         onSaved={() => {
           setEditingSlide(undefined);
           show(editingSlide ? "Slide updated" : "Slide added", "check");
+          router.refresh();
+        }}
+      />
+
+      <SubcategoryFormDrawer
+        subcategory={editingSubcategory}
+        nextSortOrder={subcategories.length ? Math.max(...subcategories.map((s) => s.sort_order)) + 1 : 1}
+        onClose={() => setEditingSubcategory(undefined)}
+        onSaved={() => {
+          setEditingSubcategory(undefined);
+          show(editingSubcategory ? "Subcategory updated" : "Subcategory added", "check");
           router.refresh();
         }}
       />

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Product, Brand, HeroSlide } from "@/lib/types";
+import type { Product, Brand, HeroSlide, SubCategory } from "@/lib/types";
 
 export async function getAllProducts(): Promise<Product[]> {
   const supabase = createClient();
@@ -79,4 +79,27 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
     return [];
   }
   return data ?? [];
+}
+
+export async function getSubcategories(): Promise<SubCategory[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("subcategories")
+    .select("*")
+    .order("category", { ascending: true })
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("getSubcategories error:", error.message);
+    return [];
+  }
+  return data ?? [];
+}
+
+/** Groups a flat subcategory list into { [categoryKey]: SubCategory[] } for nav rendering. */
+export function groupSubcategoriesByCategory(subcategories: SubCategory[]): Record<string, SubCategory[]> {
+  return subcategories.reduce<Record<string, SubCategory[]>>((acc, s) => {
+    (acc[s.category] ??= []).push(s);
+    return acc;
+  }, {});
 }

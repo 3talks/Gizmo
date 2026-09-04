@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import Providers from "@/context/Providers";
+// @ts-expect-error - Next.js resolves global CSS imports at build time.
 import "./globals.css";
 
 const display = Space_Grotesk({

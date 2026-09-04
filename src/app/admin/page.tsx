@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { getAllProducts, getAllBrands, getHeroSlides } from "@/lib/data";
+import { getAllProducts, getAllBrands, getHeroSlides, getSubcategories } from "@/lib/data";
 import AdminDashboardClient from "@/components/admin/AdminDashboardClient";
 
 export const dynamic = "force-dynamic";
@@ -16,13 +16,19 @@ export default async function AdminDashboardPage() {
   // visitors, but this page checks again before rendering anything.
   if (!user) redirect("/admin/login");
 
-  const [products, brands, heroSlides] = await Promise.all([getAllProducts(), getAllBrands(), getHeroSlides()]);
+  const [products, brands, heroSlides, subcategories] = await Promise.all([
+    getAllProducts(),
+    getAllBrands(),
+    getHeroSlides(),
+    getSubcategories(),
+  ]);
 
   return (
     <AdminDashboardClient
       products={products}
       brands={brands}
       heroSlides={heroSlides}
+      subcategories={subcategories}
       userEmail={user.email ?? "admin"}
     />
   );

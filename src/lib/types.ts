@@ -37,6 +37,15 @@ export interface HeroSlide {
   created_at?: string;
 }
 
+export interface SubCategory {
+  id: string;
+  category: string;
+  name: string;
+  href: string;
+  sort_order: number;
+  created_at?: string;
+}
+
 export interface Category {
   key: string;
   label: string;

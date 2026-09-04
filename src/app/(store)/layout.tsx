@@ -5,12 +5,16 @@ import CartDrawer from "@/components/CartDrawer";
 import WishlistDrawer from "@/components/WishlistDrawer";
 import SearchOverlay from "@/components/SearchOverlay";
 import ScrollChrome from "@/components/ScrollChrome";
+import { getSubcategories, groupSubcategoriesByCategory } from "@/lib/data";
 
-export default function StoreLayout({ children }: { children: React.ReactNode }) {
+export default async function StoreLayout({ children }: { children: React.ReactNode }) {
+  const subcategories = await getSubcategories();
+  const subcategoriesByCategory = groupSubcategoriesByCategory(subcategories);
+
   return (
     <div className="mx-auto max-w-[1360px]">
       <ScrollChrome />
-      <Header />
+      <Header subcategoriesByCategory={subcategoriesByCategory} />
       <main>{children}</main>
       <Footer />
       <BottomNav />

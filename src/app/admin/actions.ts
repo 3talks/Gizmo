@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { CATEGORIES } from "@/lib/constants";
 import type { ProductTag } from "@/lib/types";
 
 type ActionResult = { error?: string } | void;
@@ -204,6 +205,54 @@ export async function upsertHeroSlideAction(input: HeroSlideInput): Promise<Acti
 export async function deleteHeroSlideAction(id: string): Promise<ActionResult> {
   const { supabase } = await requireAdmin();
   const { error } = await supabase.from("hero_slides").delete().eq("id", id);
+  if (error) return { error: error.message };
+  revalidatePath("/", "layout");
+  return {};
+}
+
+/* ------------------------ nav subcategories ----------------------- */
+
+export interface SubcategoryInput {
+  id?: string;
+  category: string;
+  name: string;
+  href: string;
+  sort_order: number;
+}
+
+export async function upsertSubcategoryAction(input: SubcategoryInput): Promise<ActionResult> {
+  const { supabase } = await requireAdmin();
+
+  if (!CATEGORIES.some((c) => c.key === input.category)) {
+    return { error: "Choose a valid parent category." };
+  }
+  if (!input.name.trim()) {
+    return { error: "Give the subcategory a name." };
+  }
+  if (!input.href.trim().startsWith("/")) {
+    return { error: "Link should be an internal path starting with /, e.g. /category/phone" };
+  }
+
+  const payload = {
+    category: input.category,
+    name: input.name.trim(),
+    href: input.href.trim(),
+    sort_order: input.sort_order,
+  };
+
+  const { error } = input.id
+    ? await supabase.from("subcategories").update(payload).eq("id", input.id)
+    : await supabase.from("subcategories").insert(payload);
+
+  if (error) return { error: error.message };
+
+  revalidatePath("/", "layout");
+  return {};
+}
+
+export async function deleteSubcategoryAction(id: string): Promise<ActionResult> {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("subcategories").delete().eq("id", id);
   if (error) return { error: error.message };
   revalidatePath("/", "layout");
   return {};
