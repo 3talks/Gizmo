@@ -1,16 +1,16 @@
 import type { Category } from "./types";
 
 export const CATEGORIES: Category[] = [
-  { key: "phone", label: "Phones", icon: "phone" },
-  { key: "tablet", label: "iPad", icon: "tablet" },
-  { key: "laptop", label: "MacBook", icon: "laptop" },
-  { key: "watch", label: "Watches", icon: "watch" },
-  { key: "drone", label: "Drones", icon: "drone" },
-  { key: "audio", label: "Audio", icon: "headphones" },
-  { key: "speaker", label: "Theatre", icon: "speaker" },
-  { key: "camera", label: "Cameras", icon: "camera" },
-  { key: "mic", label: "Mics", icon: "mic" },
-  { key: "access", label: "Accessories", icon: "plug" },
+  { key: "phone", label: "Phone Accessories", icon: "phone" },
+  { key: "tablet", label: "Watch Accessories", icon: "tablet" },
+  { key: "laptop", label: "Action Camera Accessories", icon: "laptop" },
+  { key: "watch", label: "Others", icon: "watch" },
+  // { key: "drone", label: "Drones", icon: "drone" },
+  // { key: "audio", label: "Audio", icon: "headphones" },
+  // { key: "speaker", label: "Theatre", icon: "speaker" },
+  // { key: "camera", label: "Cameras", icon: "camera" },
+  // { key: "mic", label: "Mics", icon: "mic" },
+  // { key: "access", label: "Accessories", icon: "plug" },
 ];
 
 export const TILE_BY_CATEGORY: Record<string, string> = {
