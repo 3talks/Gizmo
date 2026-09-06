@@ -4,7 +4,7 @@ import { getAllProducts, getAllBrands, getHeroSlides, getSubcategories } from "@
 import AdminDashboardClient from "@/components/admin/AdminDashboardClient";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Dashboard — OLIZ Admin" };
+export const metadata = { title: "Dashboard — Gizmonepal Admin" };
 
 export default async function AdminDashboardPage() {
   const supabase = createClient();
