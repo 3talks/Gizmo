@@ -8,13 +8,13 @@ import { useSearch } from "@/context/SearchContext";
 import type { SubCategory } from "@/lib/types";
 
 const NAV_LINKS = [
-  { key: "phone", href: "/category/phone", label: "Phones" },
-  { key: "tablet", href: "/category/tablet", label: "iPad" },
-  { key: "laptop", href: "/category/laptop", label: "MacBook" },
-  { key: "watch", href: "/category/watch", label: "Watches" },
-  { key: "drone", href: "/category/drone", label: "Drones" },
-  { key: "audio", href: "/category/audio", label: "Audio" },
-  { key: "sale", href: "/category/sale", label: "On Sale" },
+  { key: "phone", href: "/category/phone", label: "Phone Accessories" },
+  { key: "tablet", href: "/category/tablet", label: "Watch Accessories" },
+  { key: "laptop", href: "/category/laptop", label: "Action Camera Accessories" },
+  { key: "watch", href: "/category/watch", label: "Others" },
+  // { key: "drone", href: "/category/drone", label: "Drones" },
+  // { key: "audio", href: "/category/audio", label: "Audio" },
+  // { key: "sale", href: "/category/sale", label: "On Sale" },
 ];
 
 export default function Header({ subcategoriesByCategory = {} }: { subcategoriesByCategory?: Record<string, SubCategory[]> }) {
@@ -44,7 +44,7 @@ export default function Header({ subcategoriesByCategory = {} }: { subcategories
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between gap-5 border-b border-line bg-bg/80 px-[18px] py-3.5 backdrop-blur-lg sm:px-8 lg:px-14 lg:py-5">
       <Link href="/" className="flex shrink-0 items-center gap-1.5 font-display text-xl font-bold tracking-tight">
-        OLIZ<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+        GIZMONEPAL<span className="-mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
       </Link>
 
       <nav ref={navRef} className="hidden flex-1 items-center gap-1 lg:flex">
