@@ -9,7 +9,7 @@ export default function TheatreBanner() {
         Capture it. Mount it. Repeat
       </h3>
       <p className="relative mb-4.5 max-w-[480px] text-[12.5px] leading-relaxed text-[#c7c9d6] lg:text-sm">
-        Cheat Mounts, Floating grips, ND filters and spare batteries - everything your action cam needs to keep up.
+        Chest Mounts, Floating grips, ND filters and spare batteries - everything your action cam needs to keep up.
       </p>
       <button className="relative inline-flex items-center gap-1.5 rounded-full border border-white/35 px-4.5 py-2.5 font-mono text-xs transition-colors active:bg-white/15">
         Explore more <Icon name="arrow-r" className="h-3.5 w-3.5 stroke-white" />
